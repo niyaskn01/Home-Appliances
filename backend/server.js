@@ -13,7 +13,9 @@ dotenv.config()
 app.use(cors())
 app.use(express.json())
 db()
-
+app.get('/',(req,res)=>{
+  res.send('api checked')
+})
 app.use('/user',userRouter)
 app.use('/category',categoryRouter) 
 app.use('/product',productRouter)
