@@ -43,7 +43,7 @@ const userRegisterController=async(req,res)=>{
     if(existingUser) return res.send({message:'user already exists,please login'})
 
     const hashedPassword=await hashPassword(password)
-    const newUser=new userModel({name,email,password:hashedPassword})
+    const newUser=new userModel({name,email,password:hashedPassword,cart:[]})
     await newUser.save()
 
     //create token
