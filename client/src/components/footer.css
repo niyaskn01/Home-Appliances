@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200&display=swap');
+
+
+.footer-container {
+  background-color: #000; /* Dark background color */
+  color: #fff; /* Text color */
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-title {
+  margin-bottom: 20px;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.footer-items {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-link {
+  color: #fff; /* Link color */
+  text-decoration: none;
+  margin: 0 15px;
+  transition: color 0.3s ease; /* Smooth color transition */
+  font-family: 'Exo 2', sans-serif;
+}
+
+.footer-link:hover {
+  color: #007bff; /* Hover color */
+}
+
+.main{
+  min-height: 70vh;
+  overflow-y: scroll;
+}
