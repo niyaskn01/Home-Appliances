@@ -20,6 +20,7 @@ const Header = () => {
   const [attach, setAttach] = useState(null);
   const [categories,setCategories]=useState([])
   const cart=useSelector(state=>state.getCart)
+  console.log('type',typeof(cart.cartItems))
   const totalCount = Array.isArray(cart.cartItems) ? cart.cartItems.reduce((acc, val) => acc + val.count, 0) : 0;
   const handleLogout = () => {
     localStorage.removeItem('userData');

@@ -31,7 +31,7 @@ const getCartSlice=createSlice({
     })
     builder.addCase(getCartItems.fulfilled,(state,action)=>{
       state.status='succeeded'
-      state.cartItems=action.payload
+      state.cartItems=Array.isArray(action.payload) ? action.payload : []
     })
     builder.addCase(getCartItems.rejected,state=>{
       state.status='error'
