@@ -1,11 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axios/axiosInstance'
 import toast from 'react-hot-toast';
+import { getCartItems } from '../redux/getCartSlice';
 
 function AddtoCartButton({product}) {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const user=useSelector(state=>state.user)
   
@@ -14,6 +16,7 @@ function AddtoCartButton({product}) {
       try {
         const {data}=await axiosInstance.post(`/user/addcart/${user._id}`,{product})
         toast.success(data)
+        dispatch(getCartItems());
       } catch (error) {
         console.log(error)
       }

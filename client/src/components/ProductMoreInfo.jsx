@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { Button, CardContent, CardHeader, Divider, List, ListItem, ListItemText } from '@mui/material';
 import CartQuantityBox from './CartQuantityBox';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../axios/axiosInstance'
 import toast from 'react-hot-toast';
+import { getCartItems } from '../redux/getCartSlice';
 
 const ProductMoreInfo = ({product}) => {
   const [quantity, setQuantity] = useState(1);
+  const dispatch=useDispatch()
   const user=useSelector(state=>state.user)
   const handleAddToCart=async(product)=>{
     try {
       const {data}=await axiosInstance.post(`/user/addcart/${user._id}`,{product,count:quantity});
       toast.success(data)
       setQuantity(1)
+      dispatch(getCartItems())
     } catch (error) {
       console.log(error)
     }

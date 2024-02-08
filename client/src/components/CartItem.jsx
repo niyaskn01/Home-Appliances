@@ -2,11 +2,12 @@ import React from 'react';
 import { Box, Button, ListItem, Paper, Typography } from '@mui/material';
 import { baseURL } from '../axios/axiosInstance';
 import axiosInstance from '../axios/axiosInstance'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
+import { getCartItems } from '../redux/getCartSlice';
 
-const CartItem = ({ item,cartList }) => 
-{
+const CartItem = ({ item,cartList }) =>{
+  const dispatch=useDispatch()
   const user=useSelector(state=>state.user)
   const cartItem=cartList.find((c)=>item._id===c._id)
 
@@ -14,6 +15,7 @@ const CartItem = ({ item,cartList }) =>
       try {
         const {data}=await axiosInstance.post(`/user/addcart/${user._id}`,{product,count})
         toast.success(data)
+        dispatch(getCartItems());
       } catch (error) {
         console.log(error)
       }
@@ -23,6 +25,7 @@ const CartItem = ({ item,cartList }) =>
     try {
       const {data}=await axiosInstance.put(`/user/remove/${user?._id}`,{product});
       toast.success(data)
+      dispatch(getCartItems());
     } catch (error) {
       console.log(error)
     }
