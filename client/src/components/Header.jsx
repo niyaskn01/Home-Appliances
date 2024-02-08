@@ -20,8 +20,7 @@ const Header = () => {
   const [attach, setAttach] = useState(null);
   const [categories,setCategories]=useState([])
   const cart=useSelector(state=>state.getCart)
-  const totalCount=cart?.cartItems.length !==0 ?cart?.cartItems?.reduce((acc,val)=>acc+=val.count,0): 0
-
+  const totalCount = cart?.cartItems?.length !== 0 ? cart?.cartItems.reduce((acc, val) => acc + val.count, 0) : 0;
   const handleLogout = () => {
     localStorage.removeItem('userData');
     localStorage.removeItem('userAddress')
