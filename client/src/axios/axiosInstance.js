@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const instance=axios.create({
-  baseURL:'http://localhost:8080'
+  baseURL:'https://home-appliances-xi.vercel.app'
 })
 
-export const baseURL='http://localhost:8080'
+export const baseURL='https://home-appliances-xi.vercel.app'
 
 export default instance
