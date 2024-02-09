@@ -16,7 +16,7 @@ function CategoryProducts() {
     try {
       setLoading(true)
       const {data}=await axiosInstance(`/product/category-product/${catID}`)
-       
+       console.log(data)
       if(data.success){
         setProducts(data.products)
       }

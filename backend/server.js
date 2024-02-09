@@ -10,7 +10,11 @@ const orderRouter=require('./routes/orderRoutes')
 const app=express()
 
 dotenv.config()
-app.use(cors())
+const corsOptions = {
+  origin: 'https://home-appliances-dhur.vercel.app',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions))
 app.use(express.json())
 db()
 app.get('/',(req,res)=>{
