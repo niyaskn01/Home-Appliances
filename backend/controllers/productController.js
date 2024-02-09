@@ -1,7 +1,8 @@
 const slugify=require('slugify')
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const productModel=require('../model/productModel')
-const fs=require('fs')
+const fs=require('fs');
+const userModel = require('../model/userModel');
 
 //create new product
 const createProductController=async(req,res)=>{
@@ -249,6 +250,9 @@ const paymentController=async(req,res)=>{
       cancel_url: 'http://localhost:3000/cancel',
 
     });
+
+    const userID=req.user.id
+    await userModel.findByIdAndUpdate(userID,{cart:[]})
     
     res.json({ url: session.url });
   } catch (error) {
