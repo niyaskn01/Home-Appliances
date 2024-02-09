@@ -11,7 +11,7 @@ function ProductDetails() {
   const [product, setProduct] = useState([]);
   const { productID } = useParams();
 
-  const getSingleProduct =useCallback( async () => {
+  const getSingleProduct =useCallback(async () => {
     try {
       const { data } = await axiosInstance(`/product/get-single-product/${productID}`);
       if (data.success) {
@@ -35,7 +35,7 @@ function ProductDetails() {
           <Paper style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <img
               src={`${baseURL}/product/get-photo/${productID}`}
-              alt=""
+              alt="ath thanne"
               style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           </Paper>
@@ -45,8 +45,8 @@ function ProductDetails() {
             <ProductMoreInfo product={product} />
           </Paper>
         </Grid>
-        <Grid item xs={12} >
-          <Paper style={{padding:'16px',}} >
+        <Grid item xs={12}>
+          <Paper style={{padding:'16px'}}>
             {
               product?.category?._id &&
               <SimiliarProducts catID={product?.category?._id} prodID={productID}/>

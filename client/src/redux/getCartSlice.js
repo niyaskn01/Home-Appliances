@@ -6,7 +6,7 @@ const user=JSON.parse(localStorage.getItem('userData'))
 const getCartItems=createAsyncThunk('fetching/data',async()=>{
   try {
     const {data} = await axios.get(`http://localhost:8080/user/cart/${user._id}`);
-    if(data.responce.cart.length !==0){
+    if(data.responce.cart.length !== 0){
       return data.responce.cart ;
     }else{
       return []
