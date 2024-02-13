@@ -1,11 +1,15 @@
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Checkbox, Divider, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
+import React, { useEffect, useState,useCallback } from 'react'
 import axiosInstance from '../axios/axiosInstance'
+import SliderComponent from './SliderComponent';
+import { useNavigate } from 'react-router-dom';
 
-function SideBar({setProduct}) {
+function SideBar({setProduct,getProducts,product}) {
+  const navigate=useNavigate()
   const [category,setCategory]=useState([])
-  const [selectedCategory, setSelectedCategory] = useState(''); 
+  const [selectedCategory, setSelectedCategory] = useState({}); 
   const [loading,setLoading]=useState(false)
+  const [price,setPrice]=useState(null)
 
   //get category
   const getAllCategories = async () => {
@@ -19,48 +23,57 @@ function SideBar({setProduct}) {
       setLoading(false)
     }
   };
-  const handleChange=async(e)=>{
-    const selectedValue = e.target.value;
-    setSelectedCategory(selectedValue);
-    console.log(selectedValue);
-    try {
-      if(!selectedValue){
-        getAllCategories()
-      }else{
-        const {data}=await axiosInstance(`/product/category-product/${selectedValue}`)
-        setProduct(data.products)
-      }
-    } catch (error) {
-      console.log(error);
+   const handleChange=async(checkedCategory)=>{
+    if(window.location.pathname !== '/'){
+      navigate('/')
+      return
     }
-  }
+    setSelectedCategory({
+      ...selectedCategory,[checkedCategory]:!selectedCategory[checkedCategory]
+    })
+   }
+
+   //get products with all checked ones
+   const getProductsByChecked=useCallback(async()=>{
+    const allSelectedCategory=Object.keys(selectedCategory).filter(key => selectedCategory[key]);
+    try {
+      const {data}=await axiosInstance.post('/product/get-checkbox',
+      {selectedCategories:allSelectedCategory,maxPrice:price} )
+      setProduct(data)
+    } catch (error) {
+      console.log(error)
+    }
+   })
 
   useEffect(()=>{
     getAllCategories();
   },[])
+
+  useEffect(()=>{
+    getProductsByChecked()
+  },[selectedCategory,price])
+
+  useEffect(()=>{
+    if( product?.length==0){
+      getProducts()
+    }
+  },[product,price])
   return (
     <div>
       {
         loading ? <span>loading...</span> :
-        <FormControl sx={{gap:'20px'}} component="fieldset">
-          
-          <RadioGroup
-            aria-label="gender"
-            name="controlled-radio-buttons-group"
-            value={selectedCategory}
-            onChange={handleChange}
-          ><span style={{color:'#2771c4',fontSize:'18px',fontWeight:'bold'}}>choose by category</span>
+
+        <FormControl component="fieldset">
+          <Typography textAlign={'center'} variant='subtitle1'>Filter by category</Typography>
+          <Divider/>
           {
             category.map((c)=>(
-              <FormControlLabel 
-              key={c._id}
-              value={c._id}
-              control={<Radio />} 
-              label={c.name} />
+              <FormControlLabel
+              onChange={()=>handleChange(c._id)}
+               control={<Checkbox/>} label={c.name} />
             ))
           }
-            
-          </RadioGroup>
+          <SliderComponent price={price} setPrice={setPrice}/>
         </FormControl>
       }
       

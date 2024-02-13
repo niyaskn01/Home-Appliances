@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom'
 function SearchPage() {
   const {result}=useSelector(state=>state?.search)
   const navigate=useNavigate()
-  console.log(result);
-
+  console.log('result :',result)
   useEffect(()=>{
     if(result.length ===0){
       navigate('/')

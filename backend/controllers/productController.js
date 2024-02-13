@@ -203,6 +203,23 @@ const categoryProductController=async(req,res)=>{
   }
 }
 
+//filter by checkbox
+const filterByCheckboxController=async(req,res)=>{
+  const {selectedCategories,maxPrice}=req.body
+  try {
+    let query={category:{$in:selectedCategories}}
+    if(maxPrice){
+      query.price={ $lte: maxPrice }
+    }
+    let products=await productModel.find(query).select('-image')
+    console.log(typeof(selectedCategories),"selectedCategories")
+    res.status(200).json(products)
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error)
+  }
+}
+
 //filter by price
 const filterByPriceController=async(req,res)=>{
   const {sortOrder}=req.params
@@ -250,8 +267,7 @@ const paymentController=async(req,res)=>{
       cancel_url: 'http://localhost:3000/cancel',
 
     });
-
-    const userID=req.user.id
+    const userID=req?.user?.id
     await userModel.findByIdAndUpdate(userID,{cart:[]})
     
     res.json({ url: session.url });
@@ -293,6 +309,7 @@ module.exports={
   deleteProductController,
   searchProductController,
   getSimiliarProductsController,
+  filterByCheckboxController,
   categoryProductController,
   paymentController,
   filterByPriceController,

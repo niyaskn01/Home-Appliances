@@ -11,7 +11,8 @@ const {
   paymentController,
   filterByPriceController,
   getSimiliarProductsController,
-  productListController
+  productListController,
+  filterByCheckboxController
  } = require('../controllers/productController')
 const formidable=require('express-formidable')
 const { requireSignIn, isAdmin } = require('../middlewares/authMiddleware')
@@ -51,6 +52,10 @@ router.get('/get-similiar/:catID/:prodID',getSimiliarProductsController)
 router.post('/payment',paymentController)
 
 router.get('/product-list/:page',productListController)
+
+//get products per check box
+router.post('/get-checkbox',filterByCheckboxController)
+
 
 
 module.exports=router

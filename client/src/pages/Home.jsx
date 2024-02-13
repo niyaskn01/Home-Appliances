@@ -1,7 +1,7 @@
 import React, { useEffect, useState,useCallback } from 'react'
 import Layout from '../components/Layout'
 import CardComponent from '../components/Card'
-import { Grid,Tooltip, IconButton } from '@mui/material'
+import { Grid,Tooltip, IconButton, Box } from '@mui/material'
 import axiosInstance from '../axios/axiosInstance'
 import SideBar from '../components/SideBar'
 import SortIcon from '@mui/icons-material/Sort';
@@ -19,27 +19,29 @@ function Home() {
     setProduct(data.product)
     setLoading(false)
   },[])
-  const get=async(sortOrder)=>{
-    setProduct([])
-    setVal(!val)
-    const {data}=await axiosInstance.get(`product/filterbyprice/${sortOrder}`)
+  // const get=async(sortOrder)=>{
+  //   setProduct([])
+  //   setVal(!val)
+  //   const {data}=await axiosInstance.get(`product/filterbyprice/${sortOrder}`)
     
-    setProduct(data?.products)
-  }
+  //   setProduct(data?.products)
+  // }
 
-  useEffect(()=>{
-    getProducts();
+  // useEffect(()=>{
+  //   getProducts();
   
-  },[getProducts])
+  // },[getProducts])
   return (
     <Layout>
       <Grid container marginTop={1} spacing={2}>
         <Grid item xs={2}>
-          <SideBar setProduct={setProduct} />
+          <Box pl={3} pr={3}>
+          <SideBar product={product} getProducts={getProducts} setProduct={setProduct} />
+          </Box>
         </Grid>
         <Grid item container xs={10} spacing={2}>
         
-          <IconButton 
+          {/* <IconButton 
             onClick={()=>get(val?"desc" : "asc")}
             elevation={3}
             style={{background:'#fc0b03',color:'#fff', position:'fixed',top:'110px',right:'80px'}}
@@ -59,7 +61,7 @@ function Home() {
               </Tooltip>
             }
             
-          </IconButton>
+          </IconButton> */}
           
           {loading ? (
             <div

@@ -10,6 +10,7 @@ const generateToken=(userID)=>{
 const requireSignIn=(req,res,next)=>{
   try{
     const decode=jwt.verify(req.headers.authorization,process.env.JWT_SECRET)
+    console.log(decode,'decode')
     req.user=decode
     next()
   }catch(err){

@@ -9,9 +9,9 @@ const cartRouter=require('./routes/cartRoutes')
 const orderRouter=require('./routes/orderRoutes')
 const app=express()
 
-dotenv.config()
-const corsOptions = {
-  origin: 'https://home-appliances-dhur.vercel.app',
+dotenv.config()   
+const corsOptions = {   
+  origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions))
@@ -19,7 +19,7 @@ app.use(express.json())
 db()
 app.get('/',(req,res)=>{
   res.send('api checked')
-})
+}) 
 app.use('/user',userRouter)
 app.use('/category',categoryRouter) 
 app.use('/product',productRouter)
