@@ -263,8 +263,8 @@ const paymentController=async(req,res)=>{
       shipping_address_collection: {
         allowed_countries: ['IN'], 
       },
-      success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/cancel',
+      success_url: 'https://home-appliances-dhur.vercel.app//success',
+      cancel_url: 'https://home-appliances-dhur.vercel.app//cancel',
 
     });
     const {userID}=req.params
