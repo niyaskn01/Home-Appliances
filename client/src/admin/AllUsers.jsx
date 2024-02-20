@@ -8,12 +8,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 function AllUsers() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [users, setUsers] = useState([]);
-  const user = useSelector((state) => state.user);
-  const { token } = user;
+  const userInfo = useSelector((state) => state.user);
+  const { token } = userInfo;
+  const [selectedUser,setSelectedUser]=useState('')
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +40,14 @@ function AllUsers() {
       console.log(error);
     }
   }, [token]);
+
+  //make as admin
+  const handleMakeAdmin=async()=>{
+    const {data}=await axiosInstance.put(`/user/role-change/${selectedUser?._id}`)
+    toast.success(data)
+    handlePopoverClose()
+    getUsers()
+  }
 
   useEffect(() => {
     getUsers();
@@ -84,7 +94,7 @@ function AllUsers() {
                   }
                 </Box>
                 <Box>
-                  <IconButton onClick={handlePopoverOpen}>
+                <IconButton onClick={(event)=>{handlePopoverOpen(event);setSelectedUser(user)}}>
                     <EditIcon />
                   </IconButton>
                   <Popover
@@ -100,12 +110,12 @@ function AllUsers() {
                       horizontal: 'right',
                     }}
                   >
-                    <Typography pl={1} pr={1} variant='body1'>Make as Admin</Typography>
+                    <Typography pl={1} pr={1} variant='body1'>Make as {selectedUser.role ? "User":"Admin"}</Typography>
                     <Box display='flex' justifyContent='space-between'>
-                      <IconButton>
+                      <IconButton onClick={handlePopoverClose}>
                         <CancelIcon />
-                      </IconButton>
-                      <IconButton>
+                      </IconButton> 
+                      <IconButton onClick={()=>handleMakeAdmin()}>
                         <CheckIcon />
                       </IconButton>
                     </Box>

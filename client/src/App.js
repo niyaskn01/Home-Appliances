@@ -23,6 +23,7 @@ import NotFoundPage from './pages/PageNotFound';
 import OrderPage from './pages/OrderPage';
 import Contact from './pages/Contact';
 import CategoryProducts from './pages/CategoryProducts';
+import SuccessPage from './pages/Success';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/success" element={<Contact />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<CartPage />} />

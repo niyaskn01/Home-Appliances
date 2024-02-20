@@ -1,5 +1,5 @@
 const express=require('express')
-const { userLoginController, userRegisterController, updateUserController, getSingleUserController, getAllUsersController, addToCartController, getCartController, removeCartController } = require('../controllers/userController')
+const { userLoginController, userRegisterController, updateUserController, getSingleUserController, getAllUsersController, addToCartController, getCartController, removeCartController, updateAsAdminrController } = require('../controllers/userController')
 const { requireSignIn, isAdmin } = require('../middlewares/authMiddleware')
 const router=express.Router()
 
@@ -16,15 +16,18 @@ router.put('/update/:userID',requireSignIn,updateUserController)
 router.get('/get-user/:userID',requireSignIn,getSingleUserController)
 
 //get all users 
-router.get('/all-users',requireSignIn,isAdmin,getAllUsersController)
-
+router.get('/all-users',requireSignIn,isAdmin,getAllUsersController) 
+ 
 //add to cart
 router.post('/addcart/:userID',addToCartController)
+
+//make as admin
+router.put('/role-change/:userID',updateAsAdminrController)
  
-// get cart
+// get cart 
 router.get("/cart/:userID",getCartController)
 
 //remove cart items
 router.put('/remove/:userID',removeCartController)
 
-module.exports=router
+module.exports=router 

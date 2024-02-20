@@ -11,7 +11,6 @@ function Home() {
   
   const[product,setProduct]=useState([])
   const [loading,setLoading]=useState(false)
-  const [val,setVal]=useState(false)
 
   const getProducts=useCallback(async()=>{
     setLoading(true)

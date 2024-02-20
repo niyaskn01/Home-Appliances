@@ -9,9 +9,9 @@ const cartRouter=require('./routes/cartRoutes')
 const orderRouter=require('./routes/orderRoutes')
 const app=express()
 
-dotenv.config()   
-const corsOptions = {   
-  origin: '*',
+dotenv.config()    
+const corsOptions = {    
+  origin: '*', 
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions))

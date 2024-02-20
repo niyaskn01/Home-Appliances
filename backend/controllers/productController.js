@@ -267,7 +267,7 @@ const paymentController=async(req,res)=>{
       cancel_url: 'http://localhost:3000/cancel',
 
     });
-    const userID=req?.user?.id
+    const {userID}=req.params
     await userModel.findByIdAndUpdate(userID,{cart:[]})
     
     res.json({ url: session.url });

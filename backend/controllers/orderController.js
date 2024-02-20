@@ -1,4 +1,5 @@
-const orderModel=require('../model/orderModel')
+const orderModel=require('../model/orderModel');
+const userModel = require('../model/userModel');
 
 //get order
 const getOrderController=async(req,res)=>{
@@ -46,9 +47,22 @@ const createOrderController = async (req, res) => {
   }
 };
 
+//update status
+const updateStatusController=async(req,res)=>{
+  const {status,orderID}=req.body
+  try {
+    const order=await orderModel.findByIdAndUpdate(orderID,{status},{new:true})
+    res.status(200).send('status updated')
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error)
+  }
+}
+
 
 module.exports={
   getOrderController,
   createOrderController,
-  getAllOrdersController
+  getAllOrdersController,
+  updateStatusController
 }

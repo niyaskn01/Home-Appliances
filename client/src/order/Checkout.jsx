@@ -36,7 +36,7 @@ const cartList=useSelector(state=>state.getCart.cartItems)
   const checkout = async () => {
     try {
       createOrder()
-      const res = await fetch('http://localhost:8080/product/payment', {
+      const res = await fetch(`http://localhost:8080/product/payment/${user?._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

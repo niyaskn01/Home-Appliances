@@ -22,6 +22,7 @@ function SearchBox() {
   const navigate=useNavigate()
   //search
   const handleSearch=async()=>{
+    if(keyword==='') return navigate('/')
     setLoading(true)
     const {data}=await axiosInstance.get(`/product/search/${keyword}`)
     dispatch(getResult(data?.products))

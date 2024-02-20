@@ -121,6 +121,25 @@ const getAllUsersController=async(req,res)=>{
   }
 }
 
+//update a user to admin
+const updateAsAdminrController=async(req,res)=>{
+  const {userID}=req.params
+  try {
+    const user=await userModel.findById(userID)
+    if(user.role===1){
+      await userModel.findByIdAndUpdate(userID,{role:0},{new:true})
+      res.status(200).send('he is user now')
+    }else{
+      await userModel.findByIdAndUpdate(userID,{role:1},{new:true})
+      res.status(200).send('he is admin now')
+    }
+    
+  } catch (error) {
+    console.log(Error)
+    res.status(500).send(error)
+  }
+}
+
 //add to cart
 const addToCartController = async (req, res) => {
   let { userID } = req.params;
@@ -214,5 +233,6 @@ module.exports={
   getAllUsersController,
   addToCartController,
   getCartController,
-  removeCartController
+  removeCartController,
+  updateAsAdminrController
 }

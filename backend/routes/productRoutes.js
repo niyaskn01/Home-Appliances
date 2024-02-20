@@ -49,7 +49,7 @@ router.get('/filterbyprice/:sortOrder',filterByPriceController)
 router.get('/get-similiar/:catID/:prodID',getSimiliarProductsController)
 
 //payment
-router.post('/payment',paymentController)
+router.post('/payment/:userID',paymentController)
 
 router.get('/product-list/:page',productListController)
 

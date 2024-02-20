@@ -1,84 +1,71 @@
-// import React, { useState } from 'react'
-// import { IconButton } from '@mui/material';
-// import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-// import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-// import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-// import axios from 'axios';
 
-// function Contact() {
-//   const [val,setVal]=useState(false)
-//   const [products,setProducts]=useState([])
-//   const get=async(sortOrder)=>{
-//     setVal(!val)
-//     const {data}=await axios.get(`http://localhost:8080/product/filterbyprice/${sortOrder}`)
-    
-//     setProducts(data?.products)
-//   }
-//   return (
-//     <div>
-//       {
-//         val ? 
-//         <IconButton onClick={()=>get('asc')}>
-//         <ArrowUpwardIcon />
-//         <AttachMoneyIcon/>
-//       </IconButton> :
-//       <IconButton onClick={()=>get('desc')}>
-//       <ArrowDownwardIcon/>
-//       <AttachMoneyIcon/>
-//     </IconButton>
-//       }
-//       {
-//         products.map((p)=>(
-//           <div key={p._id} style={{margin:"15px"}} >
-//             <h3>{p.name}</h3>
-//             <span>Price:{p.price}$</span><br />
-//             <button onClick={()=>window.open(`https://www.google.com/search
-//             ?q=${encodeURIComponent(p.name)}&source=univ&tbm
-//             =shop`,'_blank')}>Search on Google</button>
-//             </div>
-
-//         ))
-//       }
-      
-//     </div>
-//   )
-// }
-
-// export default Contact
-
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '../components/Layout';
-import { Button, Typography } from '@mui/material';
-import Popover from '@mui/material/Popover';
+import { Container, Grid, Paper, Typography, TextField, Button } from '@mui/material';
 
 function Contact() {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <Layout>
-      <h1>Contact</h1>
-      <Button variant="contained" onClick={handleClick}>
-        Open Popover
-      </Button>
-      <Popover
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover>
+       <Container>
+      <Grid container justify="center">
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <Typography variant="h5" gutterBottom>
+              Contact Us
+            </Typography>
+            <form>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="First Name"
+                    variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Last Name"
+                    variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Email"
+                    variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Message"
+                    variant="outlined"
+                    multiline
+                    rows={4}
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    size="large"
+                    type="submit"
+                  >
+                    Send Message
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
     </Layout>
   );
 }
