@@ -1,5 +1,4 @@
 import axios from "axios";
-import axiosInstance from '../axios/axiosInstance'
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { baseURL } from "../components/axios/axiosInstance";
@@ -7,7 +6,6 @@ const user=JSON.parse(localStorage.getItem('userData'))
 //get
 const getCartItems=createAsyncThunk('fetching/data',async()=>{
   try {
-     console.log(baseURL)
     const {data} = await axios.get(`${baseURL}/user/cart/${user._id}`);
     if(data.responce.cart.length !== 0){
       return data.responce.cart ;
