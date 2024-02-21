@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { baseURL } from "../components/axios/axiosInstance";
+import { baseURL } from "../axios/axiosInstance"; 
 const user=JSON.parse(localStorage.getItem('userData'))
 //get
 const getCartItems=createAsyncThunk('fetching/data',async()=>{
